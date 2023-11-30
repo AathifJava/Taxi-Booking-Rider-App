@@ -80,36 +80,18 @@ public class PaymentScreenRiderServiceImpl implements PaymentScreenRiderService 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Verification Not Found");
         } else if (!riderRepository.findById(requestMetaDTO.getRiderId()).get().getVerification().equals(verificationCodeDTO.getVerification())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid verification");
-        }else {
+        } else {
 
-//            String date =
+            String date = String.valueOf(LocalDate.now());
 
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            List<PaymentDTO> customerTrips = new ArrayList<>();
-//
-//            try {
-//                Date date1 = dateFormat.parse(startDate);
-//
-//                List<CustomerTrip> allTrips = customerTripRepository.findAllByRiderId(requestMetaDTO.getRiderId());
-//                allTrips.forEach(trip -> {
-//                    try {
-//                        Date tripDate = dateFormat.parse(trip.getTripEndDate());
-//                        if (tripDate.after(startDate1) && tripDate.before(endDate1)) {
-//
-//                            PaymentDTO paymentDTO = new PaymentDTO(trip.getTripCharge(), trip.getCompanyIncome(), trip.getDriverIncome());
-//                            customerTrips.add(paymentDTO);
-//
-//                        }
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                    }
-//                });
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//            return ResponseEntity.status(HttpStatus.OK).body(customerTrips);
+            List<CustomerTrip> allByRiderId = customerTripRepository.findAllByRiderId(requestMetaDTO.getRiderId());
+            List<CustomerTrip> trip = new ArrayList<>();
+            allByRiderId.forEach(trips -> {
+                if (trips.getTripEndDate().equals(date)) {
+                    trip.add(trips);
+                }
+            });
+            return ResponseEntity.status(HttpStatus.OK).body(trip);
         }
-            return null;
     }
 }
