@@ -63,7 +63,7 @@ public class RiderHomeServiceImpl implements RiderHomeService {
 //            System.out.println(riderVehicle.getRiderId()+" : 2222");
 
             // verification
-            if (!riderVehicle.getVehicleType().equals(riderAcceptTripDTO.getVehicle_type_id())) {
+            if (riderVehicle.getVehicleType().equals(riderAcceptTripDTO.getVehicle_type_id())) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vehicle Type Id Not Found");
             }
 
@@ -100,7 +100,7 @@ public class RiderHomeServiceImpl implements RiderHomeService {
 
             CustomerTrip customerTrip = customerTripRepository.findById(tripId).get();
             // verification
-            if (!String.valueOf(customerTrip.getRiderId()).equals(rider.getRiderId())) {
+            if (String.valueOf(customerTrip.getRiderId()).equals(rider.getRiderId())) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Rider Id Not Found");
             }
             customerTrip.setArrived(1);
@@ -133,7 +133,7 @@ public class RiderHomeServiceImpl implements RiderHomeService {
 
             CustomerTrip customerTrip = customerTripRepository.findById(tripId).get();
             // verification
-            if (!String.valueOf(customerTrip.getRiderId()).equals(rider.getRiderId())) {
+            if (String.valueOf(customerTrip.getRiderId()).equals(rider.getRiderId())) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Rider Id Not Found");
             }
             customerTrip.setTripStatus(3);
@@ -172,7 +172,7 @@ public class RiderHomeServiceImpl implements RiderHomeService {
 
             CustomerTrip customerTrip = customerTripRepository.findById(tripId).get();
             // verification
-            if (!String.valueOf(customerTrip.getRiderId()).equals(rider.getRiderId())) {
+            if (String.valueOf(customerTrip.getRiderId()).equals(rider.getRiderId())) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Rider Id Not Found");
             }
             customerTrip.setTripDistance(String.valueOf(riderEndTripDTO.getTrip_distance()));
